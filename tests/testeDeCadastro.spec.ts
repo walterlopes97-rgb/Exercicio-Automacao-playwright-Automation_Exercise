@@ -3,7 +3,7 @@ import { PageHome } from '../page/PageHome';
 import { PageLogin } from '../page/PageLogin';
 import { PageSingup } from '../page/PageSingup';
 
-test('Cadastro_e_Exclusão_de_Usuário', async ({ page }) => {
+test('Cenario 01: Cadastro e exclusao de usuario', async ({ page }) => {
     const pageHome = new PageHome(page);
     await pageHome.navigateToHomePage();
     await pageHome.validateHomePage();
@@ -17,5 +17,4 @@ test('Cadastro_e_Exclusão_de_Usuário', async ({ page }) => {
     await pageSingup.validateAccountCreated();
     await pageHome.cofirmarUserLogado();
     await pageHome.clicarNoBotaoDeleteAccount();
-
 });
