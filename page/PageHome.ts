@@ -31,5 +31,9 @@ export class PageHome {
     await expect(this.page.locator('b')).toContainText('Account Deleted!');
   }
 
+  async irParaPaginadeProdutos() {
+    await this.page.getByRole('link', { name: ' Products' }).click();
+  }
+
 
 }
