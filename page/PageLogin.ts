@@ -1,4 +1,6 @@
 import { expect, type Page, type Locator } from '@playwright/test';
+import { criarMassaDeTeste } from '../utils/MassasDeTeste';
+
 
 export class PageLogin {
   readonly page: Page;
@@ -21,8 +23,9 @@ export class PageLogin {
   }
 
   async criarConta() {
-    await this.page.getByRole('textbox', { name: 'Name' }).fill('habicho');
-    await this.page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address').fill(`habicho${new Date().getUTCDay()}@gmail.com`);
+    const massa = criarMassaDeTeste();
+    await this.page.getByRole('textbox', { name: 'Name' }).fill(`${massa.nome}`);
+    await this.page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address').fill(`${massa.email}`);
     await this.page.getByRole('button', { name: 'Signup' }).click();
   }
 
