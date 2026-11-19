@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import path from 'path/win32';
 
 test('CT03: Envio do Formulário "Contact Us" com Upload e Alerta JS', async ({ page }) => {
-  await page.goto('https://automationexercise.com/');
+  await page.goto('/');
   await page.getByRole('link', { name: ' Contact us' }).click();
   await expect(page.locator('#contact-page')).toContainText('Contact Us');
   await page.getByRole('textbox', { name: 'Name' }).click();
@@ -12,7 +13,12 @@ test('CT03: Envio do Formulário "Contact Us" com Upload e Alerta JS', async ({ 
   await page.getByRole('textbox', { name: 'Subject' }).fill('teste');
   await page.getByRole('textbox', { name: 'Your Message Here' }).click();
   await page.getByRole('textbox', { name: 'Your Message Here' }).fill('estou testando o site de forma automatizada');
-  await page.getByRole('button', { name: 'Choose File' }).setInputFiles('imagteste/teste.jpg');
+  await page.getByRole('button', { name: 'Choose File' }).setInputFiles(path.resolve(__dirname, 'arquivos/teste.txt'));
+  await expect(page.getByRole('button', { name: 'Choose File' })).toHaveValue('C:\\fakepath\\teste.txt');
+  page.once('dialog', async (dialog) => {
+  console.log(`Mensagem do alerta: ${dialog.message()}`);
+  await dialog.accept(); // Clica em "OK" para confirmar o envio do formulário
+});
   //await page.goto('https://automationexercise.com/contact_us#google_vignette');
   //await page.goto('https://automationexercise.com/contact_us');
  // await page.locator('iframe[name="aswift_3"]').contentFrame().getByRole('button', { name: 'Close ad' }).click();
@@ -22,5 +28,5 @@ test('CT03: Envio do Formulário "Contact Us" com Upload e Alerta JS', async ({ 
   });*/
   await page.getByRole('button', { name: 'Submit' }).click();
   await expect(page.locator('#contact-page')).toContainText('Success! Your details have been submitted successfully.');
-  await page.getByRole('link', { name: ' Home' }).click();
+  //await page.getByRole('link', { name: ' Home' }).click();
 });
