@@ -38,4 +38,9 @@ export class PageProducts {
         }
     }
 
+    async validarProdutosBuscadosSemResultados() {
+        const titulosProdutos = this.page.locator('.features_items .productinfo p');
+        await expect(titulosProdutos).toHaveCount(0);
+    }
+
 }

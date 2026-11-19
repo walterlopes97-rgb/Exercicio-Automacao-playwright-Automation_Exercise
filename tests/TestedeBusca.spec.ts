@@ -9,6 +9,5 @@ test('Cenario 02: Busca de Produtos e Validação de Resultados', async ({ page 
     await pageHome.irParaPaginadeProdutos();
     const pageProducts = new PageProducts(page);
     await pageProducts.validateProductsPage();
-    await pageProducts.validarProdutosBuscados('tshirt');
-
+    await pageProducts.validarProdutosBuscados('camisa');
 });
